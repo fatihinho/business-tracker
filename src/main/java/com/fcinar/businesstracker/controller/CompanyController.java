@@ -23,10 +23,13 @@ public class CompanyController {
     @GetMapping("/companies")
     public ResponseEntity<List<CompanyDto>> getAllCompanies() {
         List<CompanyDto> companies = companyService.getAllCompanies();
+        if (companies.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         try {
             return new ResponseEntity<>(companies, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -36,14 +39,15 @@ public class CompanyController {
             CompanyDto company = companyService.getCompanyById(id);
             return new ResponseEntity<>(company, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/companies")
-    public ResponseEntity<CompanyDto> createCompany(@RequestBody CreateCompanyRequest companyRequest) {
+    public ResponseEntity<CompanyDto> createCompany(@RequestBody CreateCompanyRequest createCompanyRequest) {
         try {
-            return new ResponseEntity<>(companyService.createCompany(companyRequest), HttpStatus.CREATED);
+            CompanyDto company = companyService.createCompany(createCompanyRequest);
+            return new ResponseEntity<>(company, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -56,7 +60,7 @@ public class CompanyController {
             CompanyDto company = companyService.updateCompanyById(id, updateCompanyRequest);
             return new ResponseEntity<>(company, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -66,7 +70,7 @@ public class CompanyController {
             companyService.deleteAllCompanies();
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -76,7 +80,7 @@ public class CompanyController {
             companyService.deleteCompanyById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

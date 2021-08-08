@@ -10,11 +10,11 @@ data class Department(
     @Column(name = "Id")
     val id: UUID,
 
-    @Column(name = "Name")
-    val name: String,
+    @Column(name = "Name", length = 30)
+    var name: String,
 
     @Column(name = "EmployeeSize")
-    val employeeSize: Int,
+    var employeeSize: Int,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CompanyId")

@@ -13,16 +13,16 @@ data class Company(
     @Column(name = "Id")
     val id: UUID,
 
-    @Column(name = "Name")
+    @Column(name = "Name", length = 30)
     var name: String,
 
-    @Column(name = "Email")
+    @Column(name = "Email", length = 20)
     var email: String,
 
-    @Column(name = "Country")
+    @Column(name = "Country", length = 20)
     var country: String?,
 
-    @Column(name = "Address")
+    @Column(name = "Address", length = 100)
     var address: String?
 ) {
     constructor(name: String, email: String, country: String?, address: String?) : this(

@@ -10,19 +10,19 @@ data class Employee(
     @Column(name = "Id")
     val id: UUID,
 
-    @Column(name = "Name")
-    val name: String,
+    @Column(name = "Name", length = 30)
+    var name: String,
 
-    @Column(name = "Surname")
-    val surname: String,
+    @Column(name = "Surname", length = 30)
+    var surname: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CompanyId")
-    val company: Company,
+    var company: Company,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DepartmentId")
-    val department: Department
+    var department: Department
 ) {
     constructor(name: String, surname: String, company: Company, department: Department) : this(
         id = UUID.randomUUID(),

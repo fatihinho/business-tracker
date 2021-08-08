@@ -24,7 +24,7 @@ public class CompanyService {
         this.companyDtoConverter = companyDtoConverter;
     }
 
-    private Company findCompanyById(UUID id) {
+    protected Company findCompanyById(UUID id) {
         return companyRepository.findById(id)
                 .orElseThrow(() -> new CompanyNotFoundException("Company could not found by id: " + id));
     }
